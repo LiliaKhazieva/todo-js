@@ -8,8 +8,49 @@
     <script src="script.js" type="module"></script>
   </head>
   <body>
-    <header>jdymjut</header>
-    <main>hndhn</main>
-    <footer>djuj</footer>
+    <header class="container">
+      <div class="logo">
+        <span>Todo</span>
+        <button>Click</button>
+      </div>
+    </header>
+    <main class="container">
+      <div class="todo">
+        <div class="todo__title-container">
+          <h1>Todo Done</h1>
+          <div class="todo__counter">1/3</div>
+        </div>
+        <div class="todo__field field">
+          <label class="field__label" for="search-task">Search:</label>
+          <input
+            class="field__input"
+            id="search-task"
+            placeholder="write your next task"
+            autocomplete="off"
+            type="search"
+          />
+        </div>
+        <div class="todo__field field">
+          <label class="field__label" for="new-task">New Task:</label>
+          <input
+            class="field__input"
+            id="new-task"
+            placeholder="write your next task"
+            autocomplete="off"
+          />
+          <button class="button" type="submit">+</button>
+        </div>
+        <ul class="todo__list">
+          <li class="todo__item">
+            <input type="checkbox" />
+            <span>Task 1: run vacia ruuun</span>
+            <button>Edit</button>
+            <button>Delete</button>
+          </li>
+        </ul>
+        <div class="todo__empty-message"></div>
+      </div>
+    </main>
+    <footer>i am footer</footer>
   </body>
 </html>
