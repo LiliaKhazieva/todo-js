@@ -3,8 +3,11 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  max-width: 400px;
+  margin: 0 auto;
   gap: 40px;
   .todo__title-container {
+    width: 100%;
     display: flex;
     align-items: center;
     gap: 40px;
@@ -32,15 +35,21 @@
 .todo__field {
   display: flex;
   align-items: center;
+  width: 100%;
   gap: 10px;
+  .field__label {
+    text-wrap: nowrap;
+  }
   .field__input {
     padding: 10px 20px;
     background-color: var(--input-color);
     border-radius: 10px;
+    width: 100%;
   }
 }
 
 .todo__list {
+  width: 100%;
   .todo__item {
     background-color: var(--input-color);
 
@@ -48,4 +57,9 @@
     border-radius: 10px;
     border: 1px solid var(--border);
   }
+}
+
+.add-button {
+  border-radius: 50%;
+  background-color: var(--accent-color);
 }

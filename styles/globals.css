@@ -2,6 +2,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  width: 100%;
   font-size: 16px;
   color: var(--text-color);
   background-color: var(--main-color);
@@ -27,7 +28,7 @@ body {
 }
 
 button {
-  background-color: #a69a8a;
+  background-color: #f0a550;
   color: aliceblue;
   border-radius: 10px;
   padding: 10px 15px;
