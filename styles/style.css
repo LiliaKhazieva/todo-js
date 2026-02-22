@@ -1,4 +1,8 @@
 @import "reset.css";
 @import "globals.css";
+@import "fonts.css";
 @import "variables.css";
+
 @import "components/todo.css";
+@import "components/input.css";
+@import "components/buttons.css";

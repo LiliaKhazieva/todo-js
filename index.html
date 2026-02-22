@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Todo JS</title>
     <link rel="stylesheet" href="/styles/style.css" />
-    <script src="script.js" type="module"></script>
+    <script src="script.js" type="module" defer></script>
   </head>
   <body>
     <header class="container">
@@ -24,32 +24,33 @@
           <input
             class="field__input"
             id="search-task"
-            placeholder="write your next task"
+            placeholder="write your text"
             autocomplete="off"
             type="search"
+            minlength="1"
+            maxlength="25"
+            required
           />
         </div>
-        <div class="todo__field field">
-          <label class="field__label" for="new-task">New Task:</label>
-          <input
-            class="field__input"
-            id="new-task"
-            placeholder="write your next task"
-            autocomplete="off"
-          />
+        <div class="new-task-container">
+          <div class="todo__field field">
+            <label class="field__label" for="new-task">New Task:</label>
+            <input
+              class="field__input"
+              id="new-task"
+              placeholder="write your next task"
+              autocomplete="off"
+              minlength="1"
+              maxlength="25"
+              required
+            />
+          </div>
           <button class="button add-button" type="submit">+</button>
         </div>
-        <ul class="todo__list">
-          <li class="todo__item">
-            <input type="checkbox" />
-            <span>Task 1: run vacia ruuun</span>
-            <button>Edit</button>
-            <button>Delete</button>
-          </li>
-        </ul>
-        <div class="todo__empty-message"></div>
       </div>
+      <ul class="todo-list todo"></ul>
+      <div class="todo__empty-message"></div>
     </main>
-    <footer>i am footer</footer>
+    <footer></footer>
   </body>
 </html>

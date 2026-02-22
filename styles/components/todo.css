@@ -1,15 +1,15 @@
 .todo {
   display: flex;
-  align-items: center;
   justify-content: center;
   flex-direction: column;
-  max-width: 400px;
+  max-width: 440px;
   margin: 0 auto;
-  gap: 40px;
+  gap: 10px;
   .todo__title-container {
     width: 100%;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 40px;
     padding: 30px 40px;
     border: 1px solid var(--border);
@@ -32,34 +32,54 @@
   }
 }
 
-.todo__field {
+.todo-list {
+  padding-top: 30px;
+  width: 100%;
   display: flex;
-  align-items: center;
-  width: 100%;
   gap: 10px;
-  .field__label {
-    text-wrap: nowrap;
-  }
-  .field__input {
-    padding: 10px 20px;
-    background-color: var(--input-color);
-    border-radius: 10px;
-    width: 100%;
+}
+
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  background-color: var(--input-color);
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+.todo-item__checkbox {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid var(--accent-color);
+  &:checked {
+    background-color: #56ca4b;
+    border: 1px solid #56ca4b;
+    & + .todo-item__label {
+      text-decoration: line-through;
+    }
   }
 }
 
-.todo__list {
-  width: 100%;
-  .todo__item {
-    background-color: var(--input-color);
-
-    padding: 20px 30px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-  }
+.todo-content {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
+.new-task-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 20px;
+}
 .add-button {
+  height: 40px;
+  flex-shrink: 0;
   border-radius: 50%;
   background-color: var(--accent-color);
 }
