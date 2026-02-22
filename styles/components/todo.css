@@ -1,0 +1,65 @@
+.todo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 400px;
+  margin: 0 auto;
+  gap: 40px;
+  .todo__title-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding: 30px 40px;
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    h1 {
+      font-size: 1.8rem;
+    }
+    .todo__counter {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000000;
+      font-size: 2rem;
+      font-weight: bold;
+      width: 120px;
+      height: 120px;
+      background-color: var(--accent-color);
+      border-radius: 50%;
+    }
+  }
+}
+
+.todo__field {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+  .field__label {
+    text-wrap: nowrap;
+  }
+  .field__input {
+    padding: 10px 20px;
+    background-color: var(--input-color);
+    border-radius: 10px;
+    width: 100%;
+  }
+}
+
+.todo__list {
+  width: 100%;
+  .todo__item {
+    background-color: var(--input-color);
+
+    padding: 20px 30px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+}
+
+.add-button {
+  border-radius: 50%;
+  background-color: var(--accent-color);
+}
