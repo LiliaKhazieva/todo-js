@@ -1,0 +1,36 @@
+.field {
+  position: relative;
+  &:has(.field__input:placeholder-shown) .field__label {
+    visibility: hidden;
+  }
+}
+
+.field__label {
+  display: inline-block;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  text-wrap: nowrap;
+}
+
+.todo__field {
+  width: 100%;
+}
+
+.field__input {
+  outline: none;
+  padding: 10px 20px;
+  background-color: var(--input-color);
+  border-radius: 10px;
+  width: 100%;
+  &:focus {
+    border: 1px solid var(--border-color);
+  }
+  &[type="search"] {
+    &:placeholder-shown {
+      background-image: url("/images/icons8-поиск.svg");
+      background-position: calc(100% - 16px) 50%;
+      background-size: 16px;
+      background-repeat: no-repeat;
+    }
+  }
+}
