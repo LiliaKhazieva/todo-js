@@ -8,9 +8,12 @@ class Todo {
   localStorageKey = "item";
   constructor() {
     this.dataElement = document.querySelector(".todo");
+    this.totalCount = document.querySelector(".todo-length");
+    this.checkedCount = document.querySelector(".todo-checked");
     this.listElement = document.querySelector(".todo-list");
     this.addButtonElement = document.querySelector(".add-button");
     this.newTaskValueElement = document.getElementById("new-task");
+    this.todoContentElement = document.querySelector(".todo-content");
 
     this.checkboxElement = document.querySelector(".todo-item__checkbox");
     this.state = {
@@ -42,13 +45,17 @@ class Todo {
   }
 
   render() {
-    this.totalCount = this.state.items.length;
+    this.totalCount.textContent = this.state.items.length;
+    this.checkedCount.textContent = this.state.items.filter(
+      (item) => item.isChecked === true
+    ).length;
+
     this.listElement.innerHTML = this.state.items
       .map(
         ({ id, title, isChecked }) => `
        <li class="todo-item">
           <div class="todo-content">
-            <input type="checkbox" class="todo-item__checkbox" id='${id}' ${
+            <input type="checkbox" class="todo-item__checkbox" id=${id} ${
           isChecked ? "checked" : ""
         } />
             <label class="todo-item__label">${title}</label>
@@ -84,6 +91,7 @@ class Todo {
       }
       return item;
     });
+
     this.setDataToLocalStorage();
     this.render();
   }
@@ -99,14 +107,14 @@ class Todo {
   };
 
   onChange = ({ target }) => {
-    if (target.matches(this.checkboxElement)) {
+    if (target.matches(".todo-item__checkbox")) {
       this.toggleHandler(target.id);
     }
   };
 
   events() {
     this.addButtonElement.addEventListener("click", this.taskFormSubmit);
-    this.listElement.addEventListener("change", this.toggleHandler);
+    this.listElement.addEventListener("change", this.onChange);
   }
 }
 new Todo();
