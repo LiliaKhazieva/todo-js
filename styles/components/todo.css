@@ -4,7 +4,6 @@
   flex-direction: column;
   max-width: 440px;
   margin: 0 auto;
-  gap: 10px;
   .todo__title-container {
     width: 100%;
     display: flex;
@@ -21,9 +20,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #000000;
+      color: #fde9e9;
       font-size: 2rem;
-      font-weight: bold;
       width: 120px;
       height: 120px;
       background-color: var(--accent-color);
@@ -35,6 +33,11 @@
 .todo-list {
   padding-top: 30px;
   width: 100%;
+  /* max-height: 200px; */
+  max-height: 200px;
+  overflow: scroll;
+  margin-top: 20px;
+  margin-bottom: 20px;
   display: flex;
   gap: 10px;
 }

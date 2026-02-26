@@ -1,17 +1,13 @@
 class Todo {
-  selectors = {
-    data: ".todo",
-    list: ".list",
-    newTaskValue: ".field__input",
-    addButton: ".add-button",
-  };
   localStorageKey = "item";
   constructor() {
     this.dataElement = document.querySelector(".todo");
     this.totalCount = document.querySelector(".todo-length");
     this.checkedCount = document.querySelector(".todo-checked");
     this.listElement = document.querySelector(".todo-list");
+    this.itemElement = document.querySelector(".todo-item");
     this.addButtonElement = document.querySelector(".add-button");
+    this.deleteButtonElement = document.querySelector(".delete-button");
     this.newTaskValueElement = document.getElementById("new-task");
     this.todoContentElement = document.querySelector(".todo-content");
 
@@ -81,6 +77,12 @@ class Todo {
     this.render();
   }
 
+  deleteItem(id) {
+    this.state.items = this.state.items.filter((item) => item.id !== id);
+    this.setDataToLocalStorage();
+    this.render();
+  }
+
   toggleHandler(id) {
     this.state.items = this.state.items.map((item) => {
       if (item.id === id) {
@@ -111,10 +113,19 @@ class Todo {
       this.toggleHandler(target.id);
     }
   };
+  onClickHandler = ({ target }) => {
+    if (target.matches(".delete-button")) {
+      const itemCheckbox = document.querySelector(".todo-item__checkbox");
+      setTimeout(() => {
+        this.deleteItem(itemCheckbox.id);
+      }, 300);
+    }
+  };
 
   events() {
     this.addButtonElement.addEventListener("click", this.taskFormSubmit);
     this.listElement.addEventListener("change", this.onChange);
+    this.listElement.addEventListener("click", this.onClickHandler);
   }
 }
 new Todo();
