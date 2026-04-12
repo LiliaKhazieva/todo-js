@@ -8,6 +8,7 @@
 .field__label {
   display: inline-block;
   padding-bottom: 5px;
+  padding-top: 5px;
   padding-left: 10px;
   text-wrap: nowrap;
 }
@@ -27,7 +28,7 @@
   }
   &[type="search"] {
     &:placeholder-shown {
-      background-image: url("/images/icons8-поиск.svg");
+      background-image: url("https://img.icons8.com/?size=100&id=59878&format=png&color=ffffff");
       background-position: calc(100% - 16px) 50%;
       background-size: 16px;
       background-repeat: no-repeat;
