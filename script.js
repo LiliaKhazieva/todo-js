@@ -6,12 +6,14 @@ class Todo {
     this.checkedCount = document.querySelector(".todo-checked");
     this.listElement = document.querySelector(".todo-list");
     this.itemElement = document.querySelector(".todo-item");
+    this.todoInput = document.querySelector(".todo-input");
     this.addButtonElement = document.querySelector(".add-button");
     this.deleteButtonElement = document.querySelector(".delete-button");
     this.newTaskValueElement = document.getElementById("new-task");
     this.todoContentElement = document.querySelector(".todo-content");
     this.todoLabel = document.querySelector(".todo-item__label");
     this.editButton = document.querySelector(".edit-button");
+
     this.searchInput = document.getElementById("search-task");
 
     this.checkboxElement = document.querySelector(".todo-item__checkbox");
@@ -61,12 +63,12 @@ class Todo {
           } />
                    <input type="text" class="todo-input" value="${title}">
                </div>
-     
+
                <div class="buttons">
                  <button class="save-button" aria-label="Save" title="Save"  id=${id}>Save</button>
                  <button class="close-button" aria-label="Close" title="Close">x</button>
                </div>
-             </li> 
+             </li>
             `;
         } else {
           return `
@@ -74,15 +76,15 @@ class Todo {
                <div class="todo-content">
                  <input type="checkbox" class="todo-item__checkbox" id=${id} ${
             isChecked ? "checked" : ""
-          } />
-                 <label class="todo-item__label">${title}</label>
+          } /> 
+      
+              <label class="todo-item__label">${title}</label>
                </div>
-     
                <div class="buttons">
-                 <button class="edit-button" aria-label="Edit" title="Edit"  id=${id}></button>
+                 <button class="edit-button" aria-label="Edit" title="Edit" id=${id}></button>
                  <button class="delete-button" aria-label="Delete" title="Detele"></button>
                </div>
-             </li> 
+             </li>
          `;
         }
       })
@@ -105,11 +107,12 @@ class Todo {
       if (item.id === id) {
         return {
           ...item,
-          isEditing: true,
+          isEditing: !item.isEditing,
         };
       }
       return item;
     });
+    this.setDataToLocalStorage();
     this.render();
   }
 
@@ -141,6 +144,8 @@ class Todo {
     if (newTaskItem.trim().length > 0) {
       this.addItem(newTaskItem);
       this.newTaskValueElement.value = "";
+    } else {
+      alert("Поле не может быть пустым. Введите значение");
     }
   };
 
@@ -173,48 +178,54 @@ class Todo {
       this.toggleHandler(target.id);
     }
   };
-  onClickHandler = ({ target }) => {
-    if (target.matches(".delete-button")) {
-      const itemCheckbox = document.querySelector(".todo-item__checkbox");
-      setTimeout(() => {
-        this.deleteItem(itemCheckbox.id);
-      }, 300);
+  onClickHandler = (e) => {
+    if (e.target && e.target.classList.contains("delete-button")) {
+      const taskDiv = e.target.closest(".todo-item");
+      this.deleteItem(taskDiv.id);
+    } else {
+      console.log("error");
     }
   };
 
   saveInputChange(id) {
     const newTitle = document.querySelector(".todo-input").value;
-
-    const taskIndex = this.state.items.findIndex((t) => t.id === id);
-    if (taskIndex !== -1) {
-      this.state.items[taskIndex].title = newTitle;
-      this.state.items = this.state.items.map((item) => {
-        if (item.id === id) {
-          return {
-            ...item,
-            isEditing: false,
-          };
-        }
-        return item;
-      });
-    }
+    this.state.items = this.state.items.map((item) => {
+      if (item.id === id) {
+        return {
+          ...item,
+          title: newTitle,
+          isEditing: !item.isEditing,
+        };
+      }
+      return item;
+    });
     this.setDataToLocalStorage();
     this.render();
   }
 
   onChangeEdit = (e) => {
-    if (e.target.matches(".edit-button")) {
-      console.log(e.target);
-      const itemCheckbox = document.querySelector(".todo-item__checkbox");
-      this.editTaskHandler(itemCheckbox.id);
+    if (e.target && e.target.classList.contains(".buttons")) {
+      // const taskDiv = e.target.closest(".buttons");
+      console.log("success");
+      // this.editTaskHandler(taskDiv.id);
+    } else {
+      console.log("error");
     }
   };
 
   onChangeSave = (e) => {
     if (e.target.matches(".save-button")) {
-      console.log(e.target);
       const itemCheckbox = document.querySelector(".todo-item__checkbox");
       this.saveInputChange(itemCheckbox.id);
+    }
+  };
+
+  onClose = (e) => {
+    if (e.target && e.target.classList.contains("close-button")) {
+      const taskDiv = e.target.closest(".todo-item");
+      this.editTaskHandler(taskDiv.id);
+    } else {
+      console.log("error");
     }
   };
 
@@ -222,8 +233,30 @@ class Todo {
     this.addButtonElement.addEventListener("click", this.taskFormSubmit);
     this.listElement.addEventListener("change", this.onChange);
     this.listElement.addEventListener("click", this.onClickHandler);
-    this.listElement.addEventListener("click", this.onChangeEdit);
-    this.listElement.addEventListener("click", this.onChangeSave);
+    this.listElement.addEventListener("click", this.onClose);
+    this.listElement.addEventListener("click", this.onClose);
+    this.listElement.addEventListener("click", (e) => {
+      console.log(e.target);
+
+      if (e.target && e.target.classList.contains("edit-button")) {
+        const taskDiv = e.target.closest(".todo-item");
+        this.editTaskHandler(taskDiv.id);
+      } else {
+        console.log("error");
+      }
+      // this.onChangeEdit;
+    });
+    this.listElement.addEventListener("click", (e) => {
+      console.log(e.target);
+
+      if (e.target && e.target.classList.contains("save-button")) {
+        const taskDiv = e.target.closest(".todo-item");
+        this.saveInputChange(taskDiv.id);
+      } else {
+        console.log("error");
+      }
+      // this.onChangeEdit;
+    });
   }
 }
 new Todo();
