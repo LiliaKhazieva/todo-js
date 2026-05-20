@@ -13,6 +13,7 @@ class Todo {
     this.todoLabel = document.querySelector(".todo-item__label");
     this.editButton = document.querySelector(".edit-button");
     this.searchInput = document.getElementById("search-task");
+    this.searchButton = document.querySelector(".search-button");
 
     this.checkboxElement = document.querySelector(".todo-item__checkbox");
     this.state = {
@@ -52,39 +53,33 @@ class Todo {
 
     this.listElement.innerHTML = this.state.items
       .map(({ id, title, isChecked, isEditing }) => {
-        if (isEditing === true) {
-          return `
-           <li class="todo-item" id=${id}>
+        return `<li class="todo-item" id=${id}>
                <div class="todo-content">
                  <input type="checkbox" class="todo-item__checkbox" id=${id} ${
-            isChecked ? "checked" : ""
-          } />
-                   <input type="text" class="todo-input" value="${title}">
+          isChecked ? "checked" : ""
+        } />
+          ${
+            isEditing
+              ? `<input type="text" class="todo-input" value=${title}/>`
+              : `<label class="todo-item__label">${title}</label>`
+          }
                </div>
      
                <div class="buttons">
-                 <button class="save-button" aria-label="Save" title="Save"  id=${id}>Save</button>
-                 <button class="close-button" aria-label="Close" title="Close">x</button>
+               
+                 <button class=${
+                   isEditing ? "save-button" : "edit-button"
+                 } aria-label="Save" id=${id}>${
+          isEditing ? "Save" : ""
+        }</button>
+                 <button class=${
+                   isEditing ? "close-button" : "delete-button"
+                 } aria-label=${isEditing ? "Close" : "Delete"}> ${
+          isEditing ? "Close" : ""
+        }</button>
                </div>
              </li> 
             `;
-        } else {
-          return `
-            <li class="todo-item" id=${id}>
-               <div class="todo-content">
-                 <input type="checkbox" class="todo-item__checkbox" id=${id} ${
-            isChecked ? "checked" : ""
-          } />
-                 <label class="todo-item__label">${title}</label>
-               </div>
-     
-               <div class="buttons">
-                 <button class="edit-button" aria-label="Edit" title="Edit"  id=${id}></button>
-                 <button class="delete-button" aria-label="Delete" title="Detele"></button>
-               </div>
-             </li> 
-         `;
-        }
       })
       .join("");
   }
@@ -137,6 +132,7 @@ class Todo {
   taskFormSubmit = (e) => {
     e.preventDefault();
     const newTaskItem = this.newTaskValueElement.value;
+    console.log(newTaskItem);
 
     if (newTaskItem.trim().length > 0) {
       this.addItem(newTaskItem);
@@ -153,19 +149,34 @@ class Todo {
         this.newTaskValueElement.value = ""; // Очистка поля
       }
     });
-    this.searchInput.addEventListener("input", (e) => {
-      const searchTerm = e.target.value.toLowerCase(); // Получаем текст из инпута [1]
+    // this.searchInput.addEventListener("input", (e) => {
+    //   console.log(e.target.value);
+    //   const searchTerm = e.target.value.toLowerCase(); // Получаем текст из инпута [1]
 
-      // 3. Ищем задачу
-      const filteredTasks = this.state.items.filter(
-        (task) => task.title.toLowerCase().includes(searchTerm) // Проверяем вхождение
-      );
-      if (filteredTasks.length === 0) {
-        this.render(this.state.items);
-      } else {
-        this.render(filteredTasks);
-      }
-    });
+    //   // 3. Ищем задачу
+
+    //   if (filteredTasks.length === 0) {
+    //     this.render(this.state.items);
+    //   } else {
+    //     this.render(filteredTasks);
+    //   }
+    // });
+  }
+
+  onSearchHandler(e) {
+    e.preventDefault();
+    console.log(e.target);
+    const qwerty = document.getElementById("search-task").value;
+    this.state.items = this.state.items.filter(
+      (task) => task.title.toLowerCase().includes(qwerty.toLowerCase()) // Проверяем вхождение
+    );
+    console.log(this.state.items);
+
+    // if (filteredTasks.length === 0) {
+    //   this.searchInput.value = "";
+    // } else {
+    //   alert("Not found");
+    // }
   }
 
   onChange = ({ target }) => {
@@ -220,6 +231,7 @@ class Todo {
 
   events() {
     this.addButtonElement.addEventListener("click", this.taskFormSubmit);
+    this.searchButton.addEventListener("click", this.onSearchHandler);
     this.listElement.addEventListener("change", this.onChange);
     this.listElement.addEventListener("click", this.onClickHandler);
     this.listElement.addEventListener("click", this.onChangeEdit);
